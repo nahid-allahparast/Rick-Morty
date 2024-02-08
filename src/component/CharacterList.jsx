@@ -2,7 +2,7 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 
 const CharacterList = ({ allCharacters }) => {
   return (
-    <div>
+    <div className="character-list">
       {allCharacters.map((item) => (
         <Character key={item.id} item={item} />
       ))}
@@ -14,7 +14,7 @@ export default CharacterList;
 
 const Character = ({ item }) => {
   return (
-    <div className="character">
+    <div className="template character">
       <img src={item.image} />
 
       <div className="info">

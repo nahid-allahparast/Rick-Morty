@@ -28,6 +28,7 @@ body {
   min-height: 100vh;
   background-color: var(--slate-900);
 }
+p{line-height: 2rem;}
 .icon {
   width: 1.6rem;
   height: 1.6rem;
@@ -50,3 +51,19 @@ button {
     color: var(--slate-400);
   }
   
+  .btn {
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+  }
+  
+  .btn--primary {
+    background-color: var(--slate-500);
+    color: var(--slate-100);
+    font-weight: 700;
+  }
+  
+  .btn--secondary {
+    border: 1px solid var(--slate-100);
+    color: var(--slate-100);
+    font-weight: 700;
+  }
