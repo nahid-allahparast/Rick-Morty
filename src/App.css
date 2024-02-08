@@ -77,15 +77,15 @@
   width: 60%;
 }
 .character-details {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   justify-content: start;
   align-items: start;
 }
 .character-details__img {
   border-radius: 10px 0 0 10px;
-  width: 30%;
-  height: 100%;
+  /* width: 30%;
+  height: 100%; */
 }
 .character-details__info {
   height: 100%;
@@ -120,4 +120,24 @@
     flex-direction: column;
     justify-content: space-between;
   }
+}
+.character-episode__title {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--slate-400);
+}
+.episode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  color: var(--slate-300);
+}
+.episode:not(:nth-child(1)) {
+  margin-top: 1rem;
+}
+.light-text {
+  color: var(--slate-300);
 }

@@ -1,4 +1,5 @@
-import { character } from "../../data/data";
+import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
+import { character, episodes } from "../../data/data";
 
 const CharcterDetails = () => {
   return (
@@ -32,7 +33,25 @@ const CharcterDetails = () => {
           </div>
         </div>
       </div>
-      
+      <div className="template character-episode">
+        <div className="character-episode__title">
+          <h2>List of Episode</h2>
+          <button className="icon">
+            <ArrowDownCircleIcon />
+          </button>
+        </div>
+        <ul className="character-episode__list">
+          {episodes.map((episode, index) => (
+            <li className="episode" key={episode.id}>
+              <div>
+                {String(index + 1).padStart(2, "0")}-
+                <strong>{episode.name}</strong>
+              </div>
+              <div className="badge badge--secondary">{episode.air_date}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
