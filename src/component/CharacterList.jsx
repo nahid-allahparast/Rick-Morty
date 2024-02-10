@@ -1,9 +1,9 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
 
-const CharacterList = ({ allCharacters }) => {
+const CharacterList = ({ Charcters }) => {
   return (
     <div className="character-list">
-      {allCharacters.map((item) => (
+      {Charcters.map((item) => (
         <Character key={item.id} item={item} />
       ))}
     </div>
