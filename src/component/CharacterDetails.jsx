@@ -57,3 +57,6 @@ const CharcterDetails = () => {
 };
 
 export default CharcterDetails;
+export function TeChildren() {
+  return <h1>test</h1>;
+}
