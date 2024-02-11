@@ -1,3 +1,4 @@
+import { Toaster, toast } from "react-hot-toast";
 import "./App.css";
 import CharacterDetails from "./component/CharacterDetails";
 import CharacterList from "./component/CharacterList";
@@ -7,19 +8,39 @@ import { useEffect, useState } from "react";
 
 const App = () => {
   const [characters, setcharacters] = useState([]);
-  const [isLoading, setIsLoadinf] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     async function fetchCharacters() {
-      const res = await fetch("https://rickandmortyapi.com/api/character");
-      const data = await res.json();
-      setcharacters(data.results.slice(0, 5));
-      setIsLoad((isLoad) => !isLoading);
+      try {
+        setIsLoading(true);
+        const res = await fetch("https://rickandmortyapi.com/api/character");
+        if (!res.ok) throw new Error("some thing is wrong");
+        const data = await res.json();
+        setcharacters(data.results.slice(0, 5));
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchCharacters();
-    // fetch("https://rickandmortyapi.com/api/character")
-    //   .then((res) => res.json())
-    //   .then((data) => setcharacters(data.results.slice(0,5)));
+    ;
   }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetch("https://rickandmortyapi.com/api/character")
+  //     .then((res) => {
+  //       if (!res.ok) throw new Error("this is an ERROR from then catch method");
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       setcharacters(data.results.slice(0, 5));
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error.message);
+  //     })
+  //     .finally(setIsLoading(false));
+  // }, []);
 
   return (
     <div className="app">
@@ -32,6 +53,7 @@ const App = () => {
         )}
 
         <CharacterDetails />
+        <Toaster />
       </div>
     </div>
   );
