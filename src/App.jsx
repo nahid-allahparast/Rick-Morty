@@ -5,27 +5,43 @@ import CharacterList from "./component/CharacterList";
 import Loader from "./component/Loader";
 import Navbar from "./component/Navbar";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const App = () => {
   const [characters, setcharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    async function fetchCharacters() {
+    async function getData() {
       try {
         setIsLoading(true);
-        const res = await fetch("https://rickandmortyapi.com/api/character");
-        if (!res.ok) throw new Error("some thing is wrong");
-        const data = await res.json();
-        setcharacters(data.results.slice(0, 5));
+        const res = await axios.get(
+          "https://rickandmortyapi.com/api/characterd"
+        );
+        setcharacters(res.data.results);
       } catch (error) {
-        toast.error(error.message);
+        toast.error(error.response.data.error);
       } finally {
         setIsLoading(false);
       }
     }
-    fetchCharacters();
-    ;
+    getData();
   }, []);
+  // useEffect(() => {
+  //   async function fetchCharacters() {
+  //     try {
+  //       setIsLoading(true);
+  //       const res = await fetch("https://rickandmortyapi.com/api/character");
+  //       if (!res.ok) throw new Error("some thing is wrong");
+  //       const data = await res.json();
+  //       setcharacters(data.results.slice(0, 5));
+  //     } catch (error) {
+  //       toast.error(error.message);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchCharacters();
+  // }, []);
   // useEffect(() => {
   //   setIsLoading(true);
   //   fetch("https://rickandmortyapi.com/api/character")
