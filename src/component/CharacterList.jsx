@@ -1,10 +1,10 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
 
-const CharacterList = ({ characters }) => {
+const CharacterList = ({ characters, onFetchDetail }) => {
   return (
     <div className="character-list">
       {characters.map((item) => (
-        <Character key={item.id} item={item} />
+        <Character key={item.id} item={item} onFetchDetail={onFetchDetail} />
       ))}
     </div>
   );
@@ -12,7 +12,7 @@ const CharacterList = ({ characters }) => {
 
 export default CharacterList;
 
-const Character = ({ item }) => {
+export const Character = ({ item, onFetchDetail }) => {
   return (
     <div className="template character">
       <img src={item.image} />
@@ -28,7 +28,7 @@ const Character = ({ item }) => {
           <span> - {item.species}</span>
         </div>
       </div>
-      <button className="red">
+      <button className="red" onClick={() => onFetchDetail(item.id)}>
         <EyeIcon className="icon" />
       </button>
     </div>

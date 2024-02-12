@@ -1,7 +1,7 @@
 import { Toaster, toast } from "react-hot-toast";
 import "./App.css";
-import CharacterDetails, { TeChildren } from "./component/CharacterDetails";
-import CharacterList from "./component/CharacterList";
+import CharacterDetails from "./component/CharacterDetails";
+import CharacterList, { Character } from "./component/CharacterList";
 import Loader from "./component/Loader";
 import Navbar, { Search, SearchResult } from "./component/Navbar";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ function App() {
   const [characters, setcharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const [detailCharacter, setDetailCharacter] = useState({});
   useEffect(() => {
     async function getData() {
       try {
@@ -18,17 +19,32 @@ function App() {
         const res = await axios.get(
           `https://rickandmortyapi.com/api/character?name=${query}`
         );
+        // console.log(res)
         setcharacters(res.data.results);
       } catch (error) {
-
         toast.error(error.response.data.error);
-        setcharacters([])
+        setcharacters([]);
       } finally {
         setIsLoading(false);
       }
     }
     getData();
   }, [query]);
+  const detailHandler = (id) => {
+    async function getDetail() {
+      try {
+        const res = await axios.get(
+          `https://rickandmortyapi.com/api/character/${id}`
+        );
+        setDetailCharacter(res.data);
+        console.log(res.data);
+        console.log(id);
+      } catch (error) {
+        toast.error(error.response.data.error);
+      }
+    }
+    getDetail();
+  };
   // useEffect(() => {
   //   async function fetchCharacters() {
   //     try {
@@ -71,12 +87,14 @@ function App() {
         {isLoading === true ? (
           <Loader />
         ) : (
-          <CharacterList characters={characters} />
+          <CharacterList
+            characters={characters}
+            onFetchDetail={detailHandler}
+          />
         )}
 
-        <CharacterDetails>
-          <TeChildren />
-        </CharacterDetails>
+        <CharacterDetails detailCharacter={detailCharacter} />
+
         <Toaster />
       </div>
     </div>
