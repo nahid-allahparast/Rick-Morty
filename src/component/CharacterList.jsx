@@ -1,10 +1,15 @@
-import { EyeIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
-const CharacterList = ({ characters, onFetchDetail }) => {
+const CharacterList = ({ characters, onSelectedId, selectedId }) => {
   return (
     <div className="character-list">
       {characters.map((item) => (
-        <Character key={item.id} item={item} onFetchDetail={onFetchDetail} />
+        <Character
+          key={item.id}
+          item={item}
+          onSelectedId={onSelectedId}
+          selectedId={selectedId}
+        />
       ))}
     </div>
   );
@@ -12,7 +17,7 @@ const CharacterList = ({ characters, onFetchDetail }) => {
 
 export default CharacterList;
 
-export const Character = ({ item, onFetchDetail }) => {
+export const Character = ({ item, onSelectedId, selectedId }) => {
   return (
     <div className="template character">
       <img src={item.image} />
@@ -28,8 +33,12 @@ export const Character = ({ item, onFetchDetail }) => {
           <span> - {item.species}</span>
         </div>
       </div>
-      <button className="red" onClick={() => onFetchDetail(item.id)}>
-        <EyeIcon className="icon" />
+      <button className="red" onClick={() => onSelectedId(item.id)}>
+        {item.id === selectedId ? (
+          <EyeSlashIcon className="icon" />
+        ) : (
+          <EyeIcon className="icon" />
+        )}
       </button>
     </div>
   );

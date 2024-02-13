@@ -1,7 +1,7 @@
 import { Toaster, toast } from "react-hot-toast";
 import "./App.css";
 import CharacterDetails from "./component/CharacterDetails";
-import CharacterList, { Character } from "./component/CharacterList";
+import CharacterList from "./component/CharacterList";
 import Loader from "./component/Loader";
 import Navbar, { Search, SearchResult } from "./component/Navbar";
 import { useEffect, useState } from "react";
@@ -11,7 +11,8 @@ function App() {
   const [characters, setcharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
-  const [detailCharacter, setDetailCharacter] = useState({});
+  const [selectedId, setSelectedId] = useState(null);
+
   useEffect(() => {
     async function getData() {
       try {
@@ -19,8 +20,7 @@ function App() {
         const res = await axios.get(
           `https://rickandmortyapi.com/api/character?name=${query}`
         );
-        // console.log(res)
-        setcharacters(res.data.results);
+        setcharacters(res.data.results.slice(0, 5));
       } catch (error) {
         toast.error(error.response.data.error);
         setcharacters([]);
@@ -30,20 +30,10 @@ function App() {
     }
     getData();
   }, [query]);
-  const detailHandler = (id) => {
-    async function getDetail() {
-      try {
-        const res = await axios.get(
-          `https://rickandmortyapi.com/api/character/${id}`
-        );
-        setDetailCharacter(res.data);
-        console.log(res.data);
-        console.log(id);
-      } catch (error) {
-        toast.error(error.response.data.error);
-      }
-    }
-    getDetail();
+
+
+  const selectedIdHandler = (id) => {
+    setSelectedId((prevId) => (prevId === id ? null : id));
   };
   // useEffect(() => {
   //   async function fetchCharacters() {
@@ -76,7 +66,6 @@ function App() {
   //     })
   //     .finally(setIsLoading(false));
   // }, []);
-
   return (
     <div className="app">
       <Navbar>
@@ -89,11 +78,25 @@ function App() {
         ) : (
           <CharacterList
             characters={characters}
-            onFetchDetail={detailHandler}
+            onSelectedId={selectedIdHandler}
+            selectedId={selectedId}
           />
         )}
-
-        <CharacterDetails detailCharacter={detailCharacter} />
+        <CharacterDetails
+          selectedId={selectedId}
+        />
+        {/* {detailIsLoading ? (
+          <Loader />
+        ) : isShow ? (
+          <CharacterDetails
+            selectedCharacter={selectedCharacter}
+            selectedId={selectedId}
+          />
+        ) : (
+          <h4 style={{ color: "var(--slate-200)" }}>
+            Please Select a Charachter
+          </h4>
+        )} */}
 
         <Toaster />
       </div>
