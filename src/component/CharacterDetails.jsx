@@ -1,5 +1,4 @@
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
-import { episodes } from "../../data/data";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -8,6 +7,7 @@ import Loader from "./Loader";
 const CharcterDetails = ({ children, selectedId }) => {
   const [character, setcharacter] = useState(null);
   const [isLoading, setIsloading] = useState(false);
+  const [episodes, setEpisodes] = useState([]);
 
   useEffect(() => {
     async function getDetails() {
@@ -18,6 +18,15 @@ const CharcterDetails = ({ children, selectedId }) => {
         );
 
         setcharacter(data);
+
+        const episodesId = data.episode.map((episode) =>
+          episode.split("/").at(-1)
+        );
+        const { data: episodesData } = await axios.get(
+          `https://rickandmortyapi.com/api/episode/${episodesId}`
+        );
+        setEpisodes([episodesData].flat().slice(0, 6));
+        console.log(episodes);
       } catch (error) {
         toast.error(error.response.data.error);
       } finally {
@@ -82,13 +91,13 @@ const CharcterDetails = ({ children, selectedId }) => {
           </button>
         </div>
         <ul className="character-episode__list">
-          {episodes.map((episode, index) => (
-            <li className="episode" key={episode.id}>
+          {episodes.map((episodes, index) => (
+            <li className="episode" key={episodes.id}>
               <div>
                 {String(index + 1).padStart(2, "0")}-
-                <strong>{episode.name}</strong>
+                <strong>{episodes.name}</strong>
               </div>
-              <div className="badge badge--secondary">{episode.air_date}</div>
+              <div className="badge badge--secondary">{episodes.air_date}</div>
             </li>
           ))}
         </ul>

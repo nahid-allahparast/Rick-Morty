@@ -20,7 +20,7 @@ function App() {
         const res = await axios.get(
           `https://rickandmortyapi.com/api/character?name=${query}`
         );
-        setcharacters(res.data.results.slice(0, 5));
+        setcharacters(res.data.results.slice(0, 6));
       } catch (error) {
         toast.error(error.response.data.error);
         setcharacters([]);
