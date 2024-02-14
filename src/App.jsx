@@ -3,15 +3,17 @@ import "./App.css";
 import CharacterDetails from "./component/CharacterDetails";
 import CharacterList from "./component/CharacterList";
 import Loader from "./component/Loader";
-import Navbar, { Search, SearchResult } from "./component/Navbar";
+import Navbar, { Favorite, Search, SearchResult } from "./component/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import FavoritesList from "./component/FavoritesList";
 
 function App() {
   const [characters, setcharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     async function getData() {
@@ -31,10 +33,16 @@ function App() {
     getData();
   }, [query]);
 
-
   const selectedIdHandler = (id) => {
     setSelectedId((prevId) => (prevId === id ? null : id));
   };
+
+  const addFavoritesHandler = (character) => {
+    setFavorites((prevFavorites) => [...prevFavorites, character]);
+  };
+  const isAddetToFavorite = favorites
+    .map((fave) => fave.id)
+    .includes(selectedId);
   // useEffect(() => {
   //   async function fetchCharacters() {
   //     try {
@@ -68,9 +76,10 @@ function App() {
   // }, []);
   return (
     <div className="app">
-      <Navbar>
+      <Navbar favorites={favorites}>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={characters.length} />
+        <Favorite numOfFavorite={favorites.length} />
       </Navbar>
       <div className="main">
         {isLoading === true ? (
@@ -84,19 +93,9 @@ function App() {
         )}
         <CharacterDetails
           selectedId={selectedId}
+          onAddToFavorites={addFavoritesHandler}
+          isAddetToFavorite={isAddetToFavorite}
         />
-        {/* {detailIsLoading ? (
-          <Loader />
-        ) : isShow ? (
-          <CharacterDetails
-            selectedCharacter={selectedCharacter}
-            selectedId={selectedId}
-          />
-        ) : (
-          <h4 style={{ color: "var(--slate-200)" }}>
-            Please Select a Charachter
-          </h4>
-        )} */}
 
         <Toaster />
       </div>

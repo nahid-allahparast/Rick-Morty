@@ -15,9 +15,29 @@
 .logo {
   color: var(--slate-100);
 }
-.navbar .heart .icon {
+.navbar .heart {
   color: var(--rose-500);
+  position: relative;
 }
+.heart .icon {
+  width: 2rem;
+  height: 2rem;
+}
+.heart .badge {
+  position: absolute;
+  top: -0.3rem;
+  right: -0.5rem;
+  color: #fff;
+  background-color: var(--rose-500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5px;
+  height: 5px;
+  padding: 0.6rem;
+}
+
 .search-result {
   color: var(--slate-500);
 }

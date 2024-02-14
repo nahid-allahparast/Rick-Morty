@@ -4,9 +4,6 @@ function Navbar({ children }) {
     <nav className="navbar">
       <div className="logo">LOGO 🚴‍♂️</div>
       {children}
-      <button className="heart">
-        <HeartIcon className="icon" />
-      </button>
     </nav>
   );
 }
@@ -26,4 +23,12 @@ export function Search({ query, setQuery }) {
 }
 export function SearchResult({ numOfResult }) {
   return <div className="search-result"> found {numOfResult} item</div>;
+}
+export function Favorite({numOfFavorite}) {
+  return (
+    <button className="heart">
+      <HeartIcon className="icon" />
+      <span className="badge ">{numOfFavorite}</span>
+    </button>
+  );
 }
