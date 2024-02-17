@@ -2,14 +2,14 @@
   margin: 0 auto;
   max-width: 1280px;
   position: relative;
-  padding: 2rem;
+  padding: 1rem;
 }
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-radius: 10px;
+  border-radius: 1rem;
   background-color: var(--slate-700);
 }
 .logo {
@@ -44,6 +44,7 @@
 .main {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .template {
   background-color: var(--slate-800);
@@ -58,10 +59,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  width: 100%;
+  /* width: 100%; */
 }
 .character img {
-  width: 23%;
+  width: 30%;
   border-radius: 1rem;
 }
 
@@ -99,21 +100,20 @@
 .character-details {
   /* height: 100%; */
   display: flex;
-  justify-content: start;
-  align-items: start;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
 }
 .character-details__img {
-  border-radius: 10px 0 0 10px;
-  /* width: 30%;
-  height: 100%; */
+  width: 50%;
 }
 .character-details__info {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   color: var(--slate-300);
   padding: 1.5rem;
+  width: 40%;
 }
 .location p:nth-child(1) {
   padding-top: 1rem;
@@ -122,25 +122,7 @@
 .location p:nth-child(2) {
   font-weight: bold;
 }
-@media screen and (max-width: 768px) {
-  .character-list {
-    width: 100%;
-  }
-  .character-list img {
-    width: 15%;
-  }
-  .detail-component {
-    width: 100%;
-  }
-  /* .detail-component img {
-    width: 35%;
-  } */
-  .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
+
 .character-episode__title {
   padding: 1rem;
   display: flex;
@@ -164,3 +146,49 @@
 .light-text {
   color: var(--slate-300);
 }
+@media screen and (max-width: 768px) {
+  * {
+    font-size: 7px;
+  }
+  .character-details {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+  }
+  .character-details img {
+    width: 100%;
+  }
+  .character-details__info {
+    width: 100%;
+    align-items: center;
+  }
+  .character-list {
+    width: 45%;
+  }
+  .character-list img {
+    width: 3rem;
+  }
+  .detail-component {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 860px) {
+  .character-list {
+    width: 35%;
+  }
+  .detail-component {
+    width: 63%;
+  }
+  .character-details img {
+    width: 58%;
+  }
+  .character-details__info {
+    width: 42%;
+  }
+  .btn--primary {
+    padding: 0.5rem !important;
+    margin-top: 0.5rem;
+  }
+}
+
