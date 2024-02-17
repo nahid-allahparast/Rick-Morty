@@ -148,6 +148,9 @@
   align-items: center;
   color: var(--slate-400);
 }
+.character-episode .character-episode__title .icon {
+  transition: all 0.3s ease-in-out;
+}
 .episode {
   display: flex;
   justify-content: space-between;
