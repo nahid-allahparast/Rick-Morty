@@ -7,9 +7,15 @@ const CharacterList = ({ characters, onSelectedId, selectedId }) => {
         <Character
           key={item.id}
           item={item}
-          onSelectedId={onSelectedId}
-          selectedId={selectedId}
-        />
+        >
+          <button className="red" onClick={() => onSelectedId(item.id)}>
+            {item.id === selectedId ? (
+              <EyeSlashIcon className="icon" />
+            ) : (
+              <EyeIcon className="icon" />
+            )}
+          </button>
+        </Character>
       ))}
     </div>
   );
@@ -17,7 +23,7 @@ const CharacterList = ({ characters, onSelectedId, selectedId }) => {
 
 export default CharacterList;
 
-export const Character = ({ item, onSelectedId, selectedId }) => {
+export const Character = ({ item, children }) => {
   return (
     <div className="template character">
       <img src={item.image} />
@@ -33,13 +39,7 @@ export const Character = ({ item, onSelectedId, selectedId }) => {
           <span> - {item.species}</span>
         </div>
       </div>
-      <button className="red" onClick={() => onSelectedId(item.id)}>
-        {item.id === selectedId ? (
-          <EyeSlashIcon className="icon" />
-        ) : (
-          <EyeIcon className="icon" />
-        )}
-      </button>
+      {children}
     </div>
   );
 };

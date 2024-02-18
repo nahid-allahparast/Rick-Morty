@@ -62,7 +62,7 @@
   /* width: 100%; */
 }
 .character img {
-  width: 30%;
+  width: 4rem;
   border-radius: 1rem;
 }
 
@@ -164,13 +164,16 @@
     align-items: center;
   }
   .character-list {
-    width: 45%;
+    width: 35%;
   }
   .character-list img {
     width: 3rem;
   }
   .detail-component {
-    width: 50%;
+    width: 60%;
+  }
+  .main {
+    justify-content: space-around;
   }
 }
 @media only screen and (min-width: 769px) and (max-width: 860px) {
@@ -191,4 +194,7 @@
     margin-top: 0.5rem;
   }
 }
-
+.show-favorite {
+  background-color: var(--slate-200) !important;
+  color: red !important;
+}

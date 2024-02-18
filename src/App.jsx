@@ -1,7 +1,7 @@
 import { Toaster, toast } from "react-hot-toast";
 import "./App.css";
 import CharacterDetails from "./component/CharacterDetails";
-import CharacterList from "./component/CharacterList";
+import CharacterList, { Character } from "./component/CharacterList";
 import Loader from "./component/Loader";
 import Navbar, { Favorite, Search, SearchResult } from "./component/Navbar";
 import { useEffect, useState } from "react";
@@ -25,7 +25,7 @@ function App() {
           `https://rickandmortyapi.com/api/character?name=${query}`,
           { signal }
         );
-        setcharacters(data.results.slice(0, 6));
+        setcharacters(data.results.slice(0, 4));
       } catch (err) {
         // if (axios.isCancel()) {
         //   setcharacters([]);
@@ -87,12 +87,13 @@ function App() {
   //     })
   //     .finally(setIsLoading(false));
   // }, []);
+
   return (
     <div className="app">
       <Navbar favorites={favorites}>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={characters.length} />
-        <Favorite numOfFavorite={favorites.length} />
+        <Favorite favorites={favorites} />
       </Navbar>
       <div className="main">
         {isLoading === true ? (
