@@ -137,7 +137,7 @@ const EpisodeList = ({ episodes }) => {
         <button
           className="icon"
           onClick={() => setSortBy((is) => !is)}
-          style={{ rotate: sortBy ? "0deg" : "-180deg" }}
+          style={{ rotate: sortBy ? "0deg" : "-180deg" ,color: "var(--rose-500)"}}
         >
           <ArrowDownCircleIcon />
         </button>

@@ -25,7 +25,7 @@ function App() {
           `https://rickandmortyapi.com/api/character?name=${query}`,
           { signal }
         );
-        setcharacters(data.results.slice(0, 4));
+        setcharacters(data.results.slice(0, 7));
       } catch (err) {
         // if (axios.isCancel()) {
         //   setcharacters([]);
@@ -87,13 +87,18 @@ function App() {
   //     })
   //     .finally(setIsLoading(false));
   // }, []);
-
+  const DeleteFavoriteHandler = (id) => {
+    setFavorites((prevFav) => prevFav.filter((item) => item.id !== id));
+  };
   return (
     <div className="app">
       <Navbar favorites={favorites}>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={characters.length} />
-        <Favorite favorites={favorites} />
+        <Favorite
+          favorites={favorites}
+          onDeleteFavorites={DeleteFavoriteHandler}
+        />
       </Navbar>
       <div className="main">
         {isLoading === true ? (

@@ -27,7 +27,7 @@ export function Search({ query, setQuery }) {
 export function SearchResult({ numOfResult }) {
   return <div className="search-result"> found {numOfResult} item</div>;
 }
-export function Favorite({ favorites, open, title, onOpen }) {
+export function Favorite({ favorites, open, title, onOpen,onDeleteFavorites }) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -37,7 +37,11 @@ export function Favorite({ favorites, open, title, onOpen }) {
           <h2 className="red">ther is no any favorite yet!</h2>
         ) : (
           favorites.map((item) => (
-            <Character className="show-favorite" item={item} key={item.id} />
+            <Character  item={item} key={item.id}>
+              <button onClick={() => onDeleteFavorites(item.id)}>
+                <TrashIcon className="red icon" />
+              </button>
+            </Character>
           ))
         )}
       </Modal>
