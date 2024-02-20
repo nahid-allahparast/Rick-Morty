@@ -6,17 +6,19 @@ import Loader from "./component/Loader";
 import Navbar, { Favorite, Search, SearchResult } from "./component/Navbar";
 import { useEffect, useState } from "react";
 import useCharacters from "./hooks/useCharacters";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [query, setQuery] = useState("");
   const { isLoading, characters } = useCharacters(query);
   const [selectedId, setSelectedId] = useState(null);
-  const [favorites, setFavorites] = useState(
-    () => JSON.parse(localStorage.getItem("FAVORITES")) || []
-  );
-  useEffect(() => {
-    localStorage.setItem("FAVORITES", JSON.stringify(favorites));
-  }, [favorites]);
+  const [favorites, setFavorites] = useLocalStorage("Favorites", []);
+  // const [favorites, setFavorites] = useState(
+  //   () => JSON.parse(localStorage.getItem("FAVORITES")) || []
+  // );
+  // useEffect(() => {
+  //   localStorage.setItem("FAVORITES", JSON.stringify(favorites));
+  // }, [favorites]);
 
   const selectedIdHandler = (id) => {
     setSelectedId((prevId) => (prevId === id ? null : id));
