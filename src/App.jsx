@@ -1,17 +1,15 @@
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import "./App.css";
 import CharacterDetails from "./component/CharacterDetails";
-import CharacterList, { Character } from "./component/CharacterList";
+import CharacterList from "./component/CharacterList";
 import Loader from "./component/Loader";
 import Navbar, { Favorite, Search, SearchResult } from "./component/Navbar";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import FavoritesList from "./component/FavoritesList";
+import useCharacters from "./hooks/useCharacters";
 
 function App() {
-  const [characters, setcharacters] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const { isLoading, characters } = useCharacters(query);
   const [selectedId, setSelectedId] = useState(null);
   const [favorites, setFavorites] = useState(
     () => JSON.parse(localStorage.getItem("FAVORITES")) || []
@@ -19,36 +17,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("FAVORITES", JSON.stringify(favorites));
   }, [favorites]);
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    async function getData() {
-      try {
-        setIsLoading(true);
-        const { data } = await axios.get(
-          `https://rickandmortyapi.com/api/character?name=${query}`,
-          { signal }
-        );
-        setcharacters(data.results.slice(0, 7));
-      } catch (err) {
-        // if (axios.isCancel()) {
-        //   setcharacters([]);
-        //   toast.error(err.response.data.error);
-        // }
-
-        if (err.name !== "CanceledError") {
-          setcharacters([]);
-          toast.error(err.response.data.error);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    getData();
-    return () => {
-      controller.abort();
-    };
-  }, [query]);
 
   const selectedIdHandler = (id) => {
     setSelectedId((prevId) => (prevId === id ? null : id));

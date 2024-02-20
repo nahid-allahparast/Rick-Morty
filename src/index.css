@@ -117,3 +117,7 @@ button {
   color: var(--slate-400);
   padding-bottom: 0.5rem;
 }
+.loader{
+  display: flex;
+  justify-content: center;
+}
